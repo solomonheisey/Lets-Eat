@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btn = findViewById(R.id.btnLetsEat);
-        btn.setTextColor(Color.WHITE);
-        btn.setBackgroundColor(0x7933ff);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
