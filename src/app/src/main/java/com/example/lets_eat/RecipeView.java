@@ -1,13 +1,20 @@
 package com.example.lets_eat;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,22 +28,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Objects;
+
+import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+
 
 public class RecipeView extends AppCompatActivity {
     private TextView jsonRecipe;
     private RequestQueue mQueue;
+    private ImageView recipeImage;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = this.getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(this.getResources().getColor(R.color.white));
+            getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+
         setContentView(R.layout.activity_recipe_view);
 
         jsonRecipe = findViewById(R.id.jsonRecipe);
+        recipeImage = findViewById(R.id.recipeImage);
+
+
 
         mQueue = Volley.newRequestQueue(this);
         jsonParse();
@@ -56,9 +78,12 @@ public class RecipeView extends AppCompatActivity {
                                 JSONObject recipe = jsonArray.getJSONObject(i);
 
                                 String thumbnail = recipe.getString("strMealThumb");
+                                if (!thumbnail.equals("") && !thumbnail.equals("null") && !thumbnail.equals(" "))
+                                    new DownloadImageTask(recipeImage).execute(thumbnail);
+
                                 String strMeal = recipe.getString("strMeal");
                                 String instructions = recipe.getString("strInstructions");
-                                jsonRecipe.setText(strMeal + "\n\n");
+                                jsonRecipe.setText("\n"+ strMeal + "\n\n");
                                 jsonRecipe.append("Ingredients:\n");
 
                                 for(int j = 1; j <= 20; j++) {
@@ -89,5 +114,31 @@ public class RecipeView extends AppCompatActivity {
             }
         });
         mQueue.add(request);
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", Objects.requireNonNull(e.getMessage()));
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
     }
 }
