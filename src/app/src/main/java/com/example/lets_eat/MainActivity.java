@@ -2,7 +2,7 @@ package com.example.lets_eat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "Let's Eat button has been pressed");
                 Toast.makeText(getApplicationContext(), "Recipe Generated!", Toast.LENGTH_SHORT)
                         .show();
+                goToRecipeView(v);
             }
         });
     }
 
-
-
-
-
-
+    public void goToRecipeView(View view) {
+        Intent intent = new Intent(this, RecipeView.class);
+        startActivity(intent);
+    }
 }
