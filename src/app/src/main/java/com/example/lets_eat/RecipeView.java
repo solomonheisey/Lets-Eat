@@ -2,6 +2,9 @@ package com.example.lets_eat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,9 +29,11 @@ public class RecipeView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
         setContentView(R.layout.activity_recipe_view);
 
         jsonRecipe = findViewById(R.id.jsonRecipe);
@@ -42,6 +47,7 @@ public class RecipeView extends AppCompatActivity {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
@@ -49,8 +55,28 @@ public class RecipeView extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject recipe = jsonArray.getJSONObject(i);
 
+                                String thumbnail = recipe.getString("strMealThumb");
                                 String strMeal = recipe.getString("strMeal");
-                                jsonRecipe.append(strMeal);
+                                String instructions = recipe.getString("strInstructions");
+                                jsonRecipe.setText(strMeal + "\n\n");
+                                jsonRecipe.append("Ingredients:\n");
+
+                                for(int j = 1; j <= 20; j++) {
+                                    String tempIngredient = recipe.getString("strIngredient" + j);
+                                    String tempMeasure = recipe.getString("strMeasure" + j);
+                                    if (!tempIngredient.equals("") && !tempIngredient.equals("null"))
+                                        jsonRecipe.append(tempIngredient);
+                                    else
+                                        break;
+
+                                    if (!tempMeasure.equals("") && !tempMeasure.equals("null") && !tempMeasure.equals(" "))
+                                        jsonRecipe.append(" (" + tempMeasure + ")\n");
+                                }
+
+
+                                jsonRecipe.append("\nInstructions: \n");
+                                jsonRecipe.setTypeface(null, Typeface.NORMAL);
+                                jsonRecipe.append(instructions);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
