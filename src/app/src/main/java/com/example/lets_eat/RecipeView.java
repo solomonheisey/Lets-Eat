@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,24 +40,30 @@ public class RecipeView extends AppCompatActivity {
     private TextView jsonRecipe;
     private RequestQueue mQueue;
     private ImageView recipeImage;
+    private TextView recipeTitle;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(this.getResources().getColor(R.color.white));
-            getWindow().getDecorView().setSystemUiVisibility(SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow();
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
         setContentView(R.layout.activity_recipe_view);
 
+
+
         jsonRecipe = findViewById(R.id.jsonRecipe);
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
+        jsonRecipe.setTypeface(typeface);
+
         recipeImage = findViewById(R.id.recipeImage);
+
+        recipeTitle = findViewById(R.id.recipeTitle);
+
 
 
 
@@ -83,8 +90,8 @@ public class RecipeView extends AppCompatActivity {
 
                                 String strMeal = recipe.getString("strMeal");
                                 String instructions = recipe.getString("strInstructions");
-                                jsonRecipe.setText("\n"+ strMeal + "\n\n");
-                                jsonRecipe.append("Ingredients:\n");
+                                recipeTitle.setText(Html.fromHtml("<b>"+ strMeal + "</b><br><br>"));
+                                jsonRecipe.setText(Html.fromHtml("<b>Ingredients:</b><br>"));
 
                                 for(int j = 1; j <= 20; j++) {
                                     String tempIngredient = recipe.getString("strIngredient" + j);
@@ -99,7 +106,7 @@ public class RecipeView extends AppCompatActivity {
                                 }
 
 
-                                jsonRecipe.append("\nInstructions: \n");
+                                jsonRecipe.append(Html.fromHtml("<br><br><b>Instructions:</b><br>"));
                                 jsonRecipe.setTypeface(null, Typeface.NORMAL);
                                 jsonRecipe.append(instructions);
                             }
