@@ -1,6 +1,9 @@
 # lets-eat
-
-<img src="images/home.png" width="20%" height="20%">
+<div class="row">
+  <div class="column> <img src="images/home.png" width="20%" height="20%"> </div>
+  <div class="column> <img src="images/sample.png" width="20%" height="20%"> </div>
+</div>
+                                                       
 
 ## Introduction
 Let's Eat is my first stab at Android development. This app relies on https://www.themealdb.com/ which is an API that currently has over 230 meals! I thought this project would be good practice on GUI development in Android, JSON parsing, and API calls. 
