@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/background" />
+        android:src="@drawable/background"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLetsEat"
@@ -19,15 +21,15 @@
         android:layout_height="74dp"
         android:layout_marginStart="98dp"
         android:layout_marginLeft="98dp"
-        android:layout_marginTop="496dp"
+        android:layout_marginTop="548dp"
         android:layout_marginEnd="98dp"
         android:layout_marginRight="98dp"
-        android:layout_marginBottom="161dp"
-        android:background="#42a7f5"
+        android:layout_marginBottom="109dp"
+        android:background="#037ffc"
         android:fontFamily="@font/roboto_light"
         android:text="Let's Eat!"
-        android:textSize="30sp"
         android:textColor="#FFFFFF"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,22 +51,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <Button
-        android:id="@+id/donate"
-        android:layout_width="366dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="679dp"
-        android:layout_marginEnd="23dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginBottom="16dp"
-        android:background="#9042a7f5"
-        android:fontFamily="@font/roboto_light"
-        android:text="Buy my developer a coffee \u2764\ufe0f"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
