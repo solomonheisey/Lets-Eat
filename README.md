@@ -1,7 +1,7 @@
 # lets-eat
 <div class="row">
-  <div class="column> <img src="images/home.png" width="20%" height="20%"> </div>
-  <div class="column> <img src="images/sample.png" width="20%" height="20%"> </div>
+  <div class="column"> <img src="images/home.png" width="20%" height="20%"> </div>
+  <div class="column"> <img src="images/sample.png" width="20%" height="20%"> </div>
 </div>
                                                        
 
