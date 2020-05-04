@@ -1,7 +1,7 @@
 # lets-eat
 
 ## Introduction
-Let's Eat is my first stab at Android development. This app relies on https://www.themealdb.com/ which is an API that currently has over 230 meals!  I thought this project would be good practice on GUI developmenet in Android, JSON parsing, and API calls. 
+Let's Eat is my first stab at Android development. This app relies on https://www.themealdb.com/ which is an API that currently has over 230 meals! I thought this project would be good practice on GUI development in Android, JSON parsing, and API calls. 
 
 ## Features
 * User can click a button that will get a random meal from an external API
