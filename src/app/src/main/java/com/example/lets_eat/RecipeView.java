@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,10 +29,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Objects;
-
-import static android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
 
 
 public class RecipeView extends AppCompatActivity {
@@ -54,18 +50,9 @@ public class RecipeView extends AppCompatActivity {
 
         setContentView(R.layout.activity_recipe_view);
 
-
-
         jsonRecipe = findViewById(R.id.jsonRecipe);
-        Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
-        jsonRecipe.setTypeface(typeface);
-
         recipeImage = findViewById(R.id.recipeImage);
-
         recipeTitle = findViewById(R.id.recipeTitle);
-
-
-
 
         mQueue = Volley.newRequestQueue(this);
         jsonParse();

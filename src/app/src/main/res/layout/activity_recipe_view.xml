@@ -37,15 +37,17 @@
             <TextView
                 android:padding="5dp"
                 android:id="@+id/recipeTitle"
+                android:fontFamily="@font/playfair"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:layout_gravity="center" />
 
             <TextView
                 android:padding="5dp"
                 android:id="@+id/jsonRecipe"
+                android:fontFamily="@font/roboto_light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"

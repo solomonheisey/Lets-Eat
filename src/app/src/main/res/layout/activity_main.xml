@@ -13,7 +13,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/background" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLetsEat"
         android:layout_width="215dp"
         android:layout_height="74dp"
@@ -24,7 +24,9 @@
         android:layout_marginRight="98dp"
         android:layout_marginBottom="161dp"
         android:background="#42a7f5"
+        android:fontFamily="@font/roboto_light"
         android:text="Let's Eat!"
+        android:textSize="30sp"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +60,7 @@
         android:layout_marginRight="23dp"
         android:layout_marginBottom="16dp"
         android:background="#9042a7f5"
+        android:fontFamily="@font/roboto_light"
         android:text="Buy my developer a coffee \u2764\ufe0f"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
