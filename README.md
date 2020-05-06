@@ -1,4 +1,4 @@
-# lets-eat
+# Lets-Eat
 <p align="center">
   <img src="images/home.png" width="20%" height="20%"> 
   <img src="images/sample.png" width="20%" height="20%">
